@@ -1,4 +1,4 @@
-# FoodDelivery
+# **Food Delivery**
 Analyze a CSV file of on-demand prepared food deliveries. 
 This data resembles businesses like GrubHub, DoorDash, UberEats etc
 
@@ -18,5 +18,5 @@ This data resembles businesses like GrubHub, DoorDash, UberEats etc
 **Refund_amount** = How much the customer was refunded <br/>
 
 # Issues with DATETIME
-The DATETIME in the CSV only consists of the Day. 
+The DATETIME in the CSV only consists of the Day. <br/>
 DATETIME is manipulated in queries to fit what is needed

@@ -3,7 +3,7 @@ Analyze a CSV file of on-demand prepared food deliveries.
 This data resembles businesses like GrubHub, DoorDash, UberEats etc
 
 # Data
-Customer_placed_order_datetime = Day and time customer placed order (Ex: 09 12:34:57) <br/>
+Customer_placed_order_datetime =  **bold text** Day and time customer placed order (Ex: 09 12:34:57) <br/>
 Placed_order_with_restaurant_datetime = Day and time restaurant received order (Ex: 09 12:45:51) <br/>
 Driver_at_restaurant_datetime = Day and time driver arrived to restuarant (Ex: 09 1:02:12) <br/>
 Delivered_to_consumer_datetime = Day and time food was delivered to customer (Ex: 09 1:34:19) <br/>

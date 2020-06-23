@@ -1,0 +1,3 @@
+**Number of Orders per Delivery Region**
+SELECT COUNT(*), delivery_region from FoodDeliveryOrders
+group by delivery_region

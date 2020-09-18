@@ -25,36 +25,60 @@ DATETIME is manipulated in queries to fit what is needed
 **NUMBER OF ORDERS PER DELIVERY REGION**  <br/>
 SELECT COUNT(*), delivery_region FROM FoodDeliveryOrders  <br/>
 GROUP BY delivery_region <br/>
+	3760  Mountain View <br/>
+	26    NONE <br/>
+	11434 Palo Alto <br/>
+	2859  San Jose <br/>
 
 **NUMBER OF RESTAURANTS**  <br/>
-SELECT COUNT(restaurant_id) FROM FoodDeliveryOrders <br/>
+SELECT count(restaurant_id) FROM (SELECT DISTINCT restaurant_id from FoodDeliveryOrders) as restaurants <br/>
+	314 <br/>
 
 **NUMBER OF DRIVERS** <br/>
-SELECT COUNT(driver_id) FROM FoodDeliveryOrders <br/>
+SELECT COUNT(driver_id) FROM (SELECT DISTINCT driver_id from FoodDeliveryOrders) as drivers<br/>
+	297 <br/>
 
 **NUMBER OF CUSTOMERS** <br/>
 SELECT COUNT(consumer_id) FROM FoodDeliveryOrders <br/>
+	18079 <br/>
 
-**NUMBER OF RETURNING CUSTOMERS** <br/>
+**LIST OF RETURNING CUSTOMERS AND NUMBER OF ORDERS** <br/>
 SELECT consumer_id, COUNT(*) AS Num_ORDERs FROM FoodDeliveryOrders <br/>
 GROUP BY consumer_id <br/>
 having Num_ORDERs > 1 <br/>
+ORDER BY Num_ORDERs DESC <br/>
+	514	66 <br/>
+	929	50 <br/>
+	11956	47 <br/>
+	2469	43 <br/>
 
 **TOP 5 RESTAURANTS WITH NUMBER OF ORDERS AND ORDER TOTALS** <br/>
 SELECT COUNT(*) AS Num_of_ORDERs, SUM(ORDER_total) AS Total_ORDER, restaurant_id FROM FoodDeliveryOrders <br/>
 GROUP BY restaurant_id <br/>
 ORDER BY Num_of_ORDERs DESC, Total_ORDER DESC <br/>
 LIMIT 5 <br/>
+	747	38386.19	8<br/>
+	724	32852.18	20<br/>
+	717	39374.93	9<br/>
+	494	26310.39	107<br/>
+	472	15421.88	12<br/>
 
 **TOP 5 AVERAGE ORDER TOTALS OF RESTAURANT** <br/>
 SELECT  AVG(ORDER_total) AS AVG_ORDER_Total, restaurant_id FROM FoodDeliveryOrders <br/>
 GROUP BY restaurant_id <br/>
 ORDER BY AVG_ORDER_Total DESC <br/>
 LIMIT 5 <br/>
+	501.24		11 <br/>
+	106.49		356 <br/>
+	99.75		257 <br/>
+	98.33		390 <br/>
+	98.17		378 <br/>
+	
 
 **TOTAL REFUNDED AMOUNT** <br/>
 SELECT  SUM(refunded_amount) FROM FoodDeliveryOrders <br/>
 where refunded_amount > 0 <br/>
+	11065.39 <br/>
 
 **TOP 5 RESTAURANTS WITH THE MOST REFUNDED AMOUNT** <br/>
 SELECT  SUM(refunded_amount) AS total_refunded, restaurant_id FROM FoodDeliveryOrders <br/>
@@ -62,6 +86,11 @@ where refunded_amount > 0 <br/>
 GROUP BY restaurant_id <br/>
 ORDER BY total_refunded DESC <br/>
 LIMIT 5 <br/>
+	822.27		20 <br/>
+	757.88		63 <br/>
+	533.81		107 <br/>
+	418.12		8 <br/>
+	326.33		9 <br/>
 
 **TOP 5 RESTAURANTS WITH RETURNING CUSTOMERS** <br/>
 SELECT COUNT(consumer_id) AS Num_of_returning_cust, restaurant_id FROM (SELECT consumer_id, COUNT(*) AS Num_ORDERS, restaurant_id FROM FoodDeliveryOrderS <br/>
@@ -70,23 +99,36 @@ having Num_ORDERS > 1) AS returning_at_restaurant <br/>
 GROUP BY restaurant_id <br/>
 ORDER BY Num_of_returning_cust DESC <br/>
 LIMIT 5 <br/>
+	153	8 <br/>
+	137	9 <br/>
+	128	20 <br/>
+	83	107 <br/>
+	82	12 <br/>
+
 
 **TOP 5 DAYS OF THE MOST ORDERS** <br/>
 SELECT COUNT(*) AS Num_Orders, Day FROM (SELECT SUBSTR(customer_placed_order_datetime, 1, 2) AS Day, *  FROM FoodDeliveryOrders) as Day_Order <br/>
 GROUP BY Day <br/>
 ORDER BY Num_Orders DESC <br/>
 LIMIT 5 <br/>
+	722	25 <br/>
+	720	26 <br/>
+	700	27 <br/>
+	687	12 <br/>
+	645	23 <br/>
 
 **NUMBER OF ASAP ORDERS** <br/>
 SELECT COUNT(*)Now_or_Later, is_asap from FoodDeliveryOrders <br/>
 GROUP BY is_asap <br/>
+	3643	False <br/>
+	14436	True <br/>
 
 
 **ELAPSED TIME BETWEEN CUSTOMER PLACING ORDER AND ORDER BEING DELIVERED WHERE ORDER IS ASAP** <br/>
 SELECT  restaurant_id, driver_id, delivery_region, <br/>
 CASE WHEN (DD - CD) + 31 = 1  <br/>
 	 THEN TIME((STRFTIME('%s', TO24) + STRFTIME('%s', DT)), 'unixepoch') <br/>
-          WHEN (DD - CD)  < 0 <br/>
+         WHEN (DD - CD)  < 0 <br/>
      	 THEN DAYH || SUBSTR(SAMEDAY, -6) <br/>
 	 WHEN (DD - CD) = 1  <br/>
       	 THEN  TIME((STRFTIME('%s', TO24) + STRFTIME('%s', DT)), 'unixepoch') <br/>

@@ -33,15 +33,15 @@ GROUP BY delivery_region <br/>
 
 **NUMBER OF RESTAURANTS**  <br/>
 SELECT count(restaurant_id) FROM (SELECT DISTINCT restaurant_id from FoodDeliveryOrders) as restaurants <br/>
-314 <br/>
+314 restuarants<br/>
 
 **NUMBER OF DRIVERS** <br/>
 SELECT COUNT(driver_id) FROM (SELECT DISTINCT driver_id from FoodDeliveryOrders) as drivers<br/>
-297 <br/>
+297 distinct drivers<br/>
 
-**NUMBER OF CUSTOMERS** <br/>
+**NUMBER OF ORDERS** <br/>
 SELECT COUNT(consumer_id) FROM FoodDeliveryOrders <br/>
-18079 <br/>
+18079 total orders<br/>
 
 **LIST OF RETURNING CUSTOMERS AND NUMBER OF ORDERS** <br/>
 SELECT consumer_id, COUNT(*) AS Num_ORDERs FROM FoodDeliveryOrders <br/>
@@ -49,10 +49,10 @@ GROUP BY consumer_id <br/>
 having Num_ORDERs > 1 <br/>
 ORDER BY Num_ORDERs DESC <br/>
 <br/>
-514	66 <br/>
-929	50 <br/>
-11956	47 <br/>
-2469	43 <br/>
+consumer id: 514	Number of Orders: 66 <br/>
+consumer id: 929	Number of Orders: 50 <br/>
+consumer id: 11956	Number of Orders: 47 <br/>
+consumer id: 2469	Number of Orders: 43 <br/>
 
 **TOP 5 RESTAURANTS WITH NUMBER OF ORDERS AND ORDER TOTALS** <br/>
 SELECT COUNT(*) AS Num_of_ORDERs, SUM(ORDER_total) AS Total_ORDER, restaurant_id FROM FoodDeliveryOrders <br/>
@@ -60,11 +60,11 @@ GROUP BY restaurant_id <br/>
 ORDER BY Num_of_ORDERs DESC, Total_ORDER DESC <br/>
 LIMIT 5 <br/>
 <br/>
-747	38386.19	8<br/>
-724	32852.18	20<br/>
-717	39374.93	9<br/>
-494	26310.39	107<br/>
-472	15421.88	12<br/>
+Number of Orders: 747	Total: 38386.19	restuarant ID: 8<br/>
+Number of Orders: 724	Total: 32852.18	restuarant ID: 20<br/>
+Number of Orders: 717	Total: 39374.93	restuarant ID: 9<br/>
+Number of Orders: 494	Total: 26310.39	1restuarant ID: 07<br/>
+Number of Orders: 472	Total: 15421.88	restuarant ID: 12<br/>
 
 **TOP 5 AVERAGE ORDER TOTALS OF RESTAURANT** <br/>
 SELECT  AVG(ORDER_total) AS AVG_ORDER_Total, restaurant_id FROM FoodDeliveryOrders <br/>
@@ -72,17 +72,17 @@ GROUP BY restaurant_id <br/>
 ORDER BY AVG_ORDER_Total DESC <br/>
 LIMIT 5 <br/>
 <br/>
-501.24		11 <br/>
-106.49		356 <br/>
-99.75		257 <br/>
-98.33		390 <br/>
-98.17		378 <br/>
+Average order total: 501.24		restaurant ID: 11 <br/>
+Average order total: 106.49		restaurant ID: 356 <br/>
+Average order total: 99.75		restaurant ID: 257 <br/>
+Average order total: 98.33		restaurant ID: 390 <br/>
+Average order total: 98.17		restaurant ID: 378 <br/>
 	
 
 **TOTAL REFUNDED AMOUNT** <br/>
 SELECT  SUM(refunded_amount) FROM FoodDeliveryOrders <br/>
 where refunded_amount > 0 <br/>
-11065.39 <br/>
+Total Refunded: 11065.39 <br/>
 
 **TOP 5 RESTAURANTS WITH THE MOST REFUNDED AMOUNT** <br/>
 SELECT  SUM(refunded_amount) AS total_refunded, restaurant_id FROM FoodDeliveryOrders <br/>
@@ -91,11 +91,11 @@ GROUP BY restaurant_id <br/>
 ORDER BY total_refunded DESC <br/>
 LIMIT 5 <br/>
 <br/>
-822.27		20 <br/>
-757.88		63 <br/>
-533.81		107 <br/>
-418.12		8 <br/>
-326.33		9 <br/>
+Total Refunded: 822.27		Restaurant ID: 20 <br/>
+Total Refunded: 757.88		Restaurant ID: 63 <br/>
+Total Refunded: 533.81		Restaurant ID: 107 <br/>
+Total Refunded: 418.12		Restaurant ID: 8 <br/>
+Total Refunded: 326.33		Restaurant ID: 9 <br/>
 
 **TOP 5 RESTAURANTS WITH RETURNING CUSTOMERS** <br/>
 SELECT COUNT(consumer_id) AS Num_of_returning_cust, restaurant_id FROM (SELECT consumer_id, COUNT(*) AS Num_ORDERS, restaurant_id FROM FoodDeliveryOrderS <br/>
@@ -105,11 +105,11 @@ GROUP BY restaurant_id <br/>
 ORDER BY Num_of_returning_cust DESC <br/>
 LIMIT 5 <br/>
 <br/>
-153	8 <br/>
-137	9 <br/>
-128	20 <br/>
-83	107 <br/>
-82	12 <br/>
+Number of Returning Customers: 153	Restaurant ID: 8 <br/>
+Number of Returning Customers: 137	Restaurant ID: 9 <br/>
+Number of Returning Customers: 128	Restaurant ID: 20 <br/>
+Number of Returning Customers: 83	Restaurant ID: 107 <br/>
+Number of Returning Customers: 82	Restaurant ID: 12 <br/>
 
 
 **TOP 5 DAYS OF THE MOST ORDERS** <br/>
@@ -118,18 +118,18 @@ GROUP BY Day <br/>
 ORDER BY Num_Orders DESC <br/>
 LIMIT 5 <br/>
 <br/>
-722	25 <br/>
-720	26 <br/>
-700	27 <br/>
-687	12 <br/>
-645	23 <br/>
+Orders: 722	Day: 25 <br/>
+Orders: 720	Day: 26 <br/>
+Orders: 700	Day: 27 <br/>
+Orders: 687	Day: 12 <br/>
+Orders: 645	Day: 23 <br/>
 
 **NUMBER OF ASAP ORDERS** <br/>
 SELECT COUNT(*)Now_or_Later, is_asap from FoodDeliveryOrders <br/>
 GROUP BY is_asap <br/>
 <br/>
-3643	False <br/>
-14436	True <br/>
+NOT ASAP Orders: 3643	False <br/>
+ASAP Orders:     14436	True <br/>
 
 
 **ELAPSED TIME BETWEEN CUSTOMER PLACING ORDER AND ORDER BEING DELIVERED WHERE ORDER IS ASAP** <br/>

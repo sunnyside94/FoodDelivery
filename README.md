@@ -26,10 +26,10 @@ DATETIME is manipulated in queries to fit what is needed
 SELECT COUNT(*), delivery_region FROM FoodDeliveryOrders  <br/>
 GROUP BY delivery_region <br/>
 <br/>
-3760  Mountain View <br/>
-26    NONE <br/>
-11434 Palo Alto <br/>
-2859  San Jose <br/>
+Number of Orders: 3760  Location: Mountain View <br/>
+Number of Orders: 26    Location:  NONE <br/>
+Number of Orders: 11434 Location: Palo Alto <br/>
+Number of Orders: 2859  Location: San Jose <br/>
 
 **NUMBER OF RESTAURANTS**  <br/>
 SELECT count(restaurant_id) FROM (SELECT DISTINCT restaurant_id from FoodDeliveryOrders) as restaurants <br/>
